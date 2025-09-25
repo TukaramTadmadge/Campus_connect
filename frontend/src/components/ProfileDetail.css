@@ -1,0 +1,182 @@
+/* Overlay background */
+.profile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 50;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Modal container */
+.profile-modal {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  background: #1e1e2f;
+  border-radius: 1rem;
+  border: 1px solid #555;
+  box-shadow: 0 0 30px rgba(0,0,0,0.7);
+  padding: 2rem 1.5rem 2rem 1.5rem;
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Title gradient */
+.profile-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(90deg, #8e2de2, #c03, #f7971e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+}
+
+/* Flex container for info + upload */
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media(min-width: 768px) {
+  .profile-content {
+    flex-direction: row;
+  }
+}
+
+/* Profile info */
+.profile-info h3 {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.profile-info span {
+  color: #a78bfa;
+  font-weight: 500;
+}
+.logout-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #e53e3e;
+  color: #fff;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+.logout-btn:hover {
+  background: #c53030;
+}
+.logout-btn-mobile {
+  display: none;
+}
+@media(max-width: 767px) {
+  .logout-btn { display: none; }
+  .logout-btn-mobile { display: inline-block; margin-top: 1rem; }
+}
+
+/* Profile upload section */
+.profile-upload {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.profile-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 4px solid #8b5cf6;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+}
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+.upload-form input[type="file"] {
+  padding: 0.4rem;
+  color: #ddd;
+  border-radius: 0.5rem;
+  border: 1px solid #555;
+}
+.upload-form button {
+  padding: 0.5rem;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+.upload-form button:hover {
+  background: #1e40af;
+}
+
+/* Notes upload section */
+.notes-upload {
+  margin-top: 2rem;
+  border-top: 1px solid #555;
+  padding-top: 1rem;
+}
+.notes-upload h3 {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.notes-upload form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.notes-upload select,
+.notes-upload input[type="text"],
+.notes-upload input[type="file"] {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: #2a2a3f;
+  border: 1px solid #555;
+  color: #ddd;
+}
+.notes-upload button {
+  padding: 0.5rem;
+  background: #16a34a;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+.notes-upload button:hover {
+  background: #15803d;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #2a2a3f;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+.close-btn:hover {
+  background: #3b3b52;
+}

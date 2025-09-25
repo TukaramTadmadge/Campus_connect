@@ -1,0 +1,147 @@
+/* Background */
+.signin-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("/college1.jpg") center/cover no-repeat;
+  position: relative;
+}
+
+/* Dark overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Card */
+.signin-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 450px;
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid #374151;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Titles */
+.signin-title {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.signin-subtitle {
+  text-align: center;
+  color: #9ca3af;
+  margin-bottom: 24px;
+}
+
+.signin-subtitle span {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+/* Form */
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #d1d5db;
+}
+
+.form-group input {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #374151;
+  background: #1f2937;
+  color: white;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #3b82f6;
+}
+
+/* Password wrapper */
+.password-wrapper {
+  position: relative;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+/* Button */
+.signin-form button {
+  margin-top: 16px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.signin-form button:hover {
+  background: #1d4ed8;
+}
+
+.signin-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Links */
+.signin-links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.signin-links a {
+  text-decoration: none;
+  color: #9ca3af;
+  transition: color 0.3s;
+}
+
+.signin-links a:hover {
+  color: #3b82f6;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

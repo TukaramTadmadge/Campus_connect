@@ -1,0 +1,72 @@
+/* Main container */
+.groups-container {
+  display: flex;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,       /* diagonal top-right */
+    #000000,      /* from-black */
+    #1e3a8a,      /* via-blue-900 */
+    #000000       /* to-black */
+  );
+  border: 1px solid #475569; /* optional, keeps border if needed */
+}
+
+/* Left chat panel */
+.groups-left {
+  width: 40%;
+  height: 80vh;
+  background: rgba(30, 41, 59, 0.6); /* slightly transparent so container gradient shows through */
+  border-right: 1px solid #475569;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.groups-left.hidden {
+  display: none;
+}
+
+/* Right chat panel */
+.groups-right {
+  width: 60%;
+  height: 80vh;
+  background: rgba(30, 41, 59, 0.6); /* match left panel for consistent gradient look */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.groups-right.hidden {
+  display: none;
+}
+
+/* Floating action buttons */
+.action-buttons {
+  position: absolute;
+  bottom: 16px;
+  right: 20px;
+  display: flex;
+  gap: 18px;
+  color: white;
+}
+
+.action-buttons svg {
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.action-buttons svg:hover {
+  transform: scale(1.15);
+  color: #38bdf8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .groups-left,
+  .groups-right {
+    width: 100%;
+  }
+}
