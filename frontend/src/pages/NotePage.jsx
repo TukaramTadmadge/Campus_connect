@@ -108,22 +108,22 @@ const NotePage = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-bar"
           />
-          {filteredNotes.length > 0 ? (
-            filteredNotes.map((note) => (
-              <div key={note._id} className="note-card">
-                <p>
-                  <strong>{note.originalName}</strong> ({note.yearOfStudy},{" "}
-                  {note.department}, {note.subject}) - Uploaded by{" "}
-                  {note.user?.firstName} {note.user?.lastName}
-                </p>
-                <a href={`http://localhost:9000${note.fileUrl}`} target="_blank" rel="noreferrer">
-                  View / Download
-                </a>
-              </div>
-            ))
-          ) : (
-            <p className="no-notes">No notes found for this uploader.</p>
-          )}
+          {filteredNotes.map((note) => (
+  <div key={note._id} className="note-card">
+    <p>
+      <strong>{note.originalName}</strong> ({note.yearOfStudy}, {note.department}, {note.subject}) - Uploaded by{" "}
+      {note.user?.firstName} {note.user?.lastName}
+    </p>
+    <a
+      href={`http://localhost:9000/api/notes/file/${note._id}`}
+      target="_blank"
+      rel="noreferrer"
+    >
+      View / Download
+    </a>
+  </div>
+))}
+
         </div>
       )}
     </div>
