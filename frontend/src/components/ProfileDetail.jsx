@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "./ProfileDetail.css";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:9000";
 
 const ProfileDetail = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const ProfileDetail = () => {
   const [yearOfStudy, setYearOfStudy] = useState("");
   const [department, setDepartment] = useState("");
   const [subject, setSubject] = useState("");
-  const [currentProfile, setCurrentProfile] = useState(user.profilePicture || user.image);
+  const [currentProfile, setCurrentProfile] = useState(user?.profilePicture || user?.image);
 
   if (!user) return null;
 
@@ -25,14 +25,17 @@ const ProfileDetail = () => {
   const handleProfilePicUpload = async (e) => {
     e.preventDefault();
     if (!profilePic) return toast.error("Please choose a profile picture first!");
+
     const formData = new FormData();
     formData.append("profilePicture", profilePic);
+
     try {
       const res = await axios.post(
         `${BACKEND_URL}/api/profile-picture/${user._id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
+
       toast.success("Profile picture updated successfully!");
       setCurrentProfile(res.data.profilePicture || URL.createObjectURL(profilePic));
       setProfilePic(null);
@@ -42,7 +45,7 @@ const ProfileDetail = () => {
     }
   };
 
-  // Upload notes
+  // Upload notes to backend (MongoDB)
   const handleNotesUpload = async (e) => {
     e.preventDefault();
     if (!noteFile || !yearOfStudy || !department || !subject)
@@ -82,6 +85,10 @@ const ProfileDetail = () => {
     }
   };
 
+  const profileImageUrl = currentProfile?.startsWith("http")
+    ? currentProfile
+    : `${BACKEND_URL}/uploads/${currentProfile}`;
+
   return (
     <div className="profile-overlay">
       <div className="profile-modal">
@@ -93,17 +100,16 @@ const ProfileDetail = () => {
             <h3>Email: <span>{user.email}</span></h3>
             {user.department && <h3>Department: <span>{user.department}</span></h3>}
             {user.isSenior !== undefined && <h3>Role: <span>{user.isSenior ? "Senior" : "Junior"}</span></h3>}
-            <button className="logout-btn" onClick={() => { localStorage.removeItem("token"); window.location.reload(); }}>
+            <button
+              className="logout-btn"
+              onClick={() => { localStorage.removeItem("token"); window.location.reload(); }}
+            >
               Logout
             </button>
           </div>
 
           <div className="profile-upload">
-            <img
-              src={currentProfile ? `${BACKEND_URL}/uploads/${currentProfile}` : "/images/dyp.png"}
-              alt="profile"
-              className="profile-img"
-            />
+            <img src={profileImageUrl || "/images/dyp.png"} alt="profile" className="profile-img" />
             <form onSubmit={handleProfilePicUpload} className="upload-form">
               <input type="file" accept="image/*" onChange={(e) => setProfilePic(e.target.files[0])} />
               <button type="submit">Update Picture</button>
@@ -132,8 +138,17 @@ const ProfileDetail = () => {
               <option value="AIML">Artificial Intelligence and Machine Learning</option>
               <option value="EEE">Electrical and Electronics Engineering</option>
             </select>
-            <input type="text" placeholder="Enter Subject Name" value={subject} onChange={(e) => setSubject(e.target.value)} />
-            <input type="file" accept=".pdf,.doc,.docx" onChange={(e) => setNoteFile(e.target.files[0])} />
+            <input
+              type="text"
+              placeholder="Enter Subject Name"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            />
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={(e) => setNoteFile(e.target.files[0])}
+            />
             <button type="submit">Upload Notes</button>
           </form>
         </div>

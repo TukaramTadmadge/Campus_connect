@@ -6,9 +6,9 @@ const notesSchema = new mongoose.Schema(
     yearOfStudy: { type: String, required: true },
     department: { type: String, required: true },
     subject: { type: String, required: true },
-    originalName: { type: String, required: true }, // file name
-    fileData: { type: Buffer, required: true },     // file stored as buffer
-    fileType: { type: String, required: true },     // MIME type
+    originalName: { type: String, required: true },
+    fileData: { type: Buffer, required: true },
+    fileType: { type: String, required: true },
   },
   { timestamps: true }
 );
