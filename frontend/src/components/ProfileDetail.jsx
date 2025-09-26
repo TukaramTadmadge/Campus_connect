@@ -6,6 +6,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "./ProfileDetail.css";
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+
 const ProfileDetail = () => {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.auth);
@@ -19,7 +21,7 @@ const ProfileDetail = () => {
 
   if (!user) return null;
 
-  // Update profile picture without logout
+  // Update profile picture
   const handleProfilePicUpload = async (e) => {
     e.preventDefault();
     if (!profilePic) return toast.error("Please choose a profile picture first!");
@@ -27,12 +29,11 @@ const ProfileDetail = () => {
     formData.append("profilePicture", profilePic);
     try {
       const res = await axios.post(
-        `http://localhost:9000/api/profile-picture/${user._id}`,
+        `${BACKEND_URL}/api/profile-picture/${user._id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
       toast.success("Profile picture updated successfully!");
-      // Update locally without reload
       setCurrentProfile(res.data.profilePicture || URL.createObjectURL(profilePic));
       setProfilePic(null);
     } catch (err) {
@@ -41,7 +42,7 @@ const ProfileDetail = () => {
     }
   };
 
-  // Upload notes without logging out
+  // Upload notes
   const handleNotesUpload = async (e) => {
     e.preventDefault();
     if (!noteFile || !yearOfStudy || !department || !subject)
@@ -56,7 +57,7 @@ const ProfileDetail = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.post(
-        `http://localhost:9000/api/notes/${user._id}`,
+        `${BACKEND_URL}/api/notes/${user._id}`,
         formData,
         {
           headers: {
@@ -68,7 +69,6 @@ const ProfileDetail = () => {
 
       if (res.data.success) {
         toast.success(res.data.message || "Notes uploaded successfully!");
-        // Reset form fields
         setYearOfStudy("");
         setDepartment("");
         setSubject("");
@@ -88,7 +88,6 @@ const ProfileDetail = () => {
         <h2 className="profile-title">Your Profile</h2>
 
         <div className="profile-content">
-          {/* Profile Info */}
           <div className="profile-info">
             <h3>Name: <span>{user.firstName} {user.lastName}</span></h3>
             <h3>Email: <span>{user.email}</span></h3>
@@ -99,10 +98,9 @@ const ProfileDetail = () => {
             </button>
           </div>
 
-          {/* Profile Picture Upload */}
           <div className="profile-upload">
             <img
-              src={currentProfile ? `/uploads/${currentProfile}` : "/images/dyp.png"}
+              src={currentProfile ? `${BACKEND_URL}/uploads/${currentProfile}` : "/images/dyp.png"}
               alt="profile"
               className="profile-img"
             />
@@ -113,7 +111,6 @@ const ProfileDetail = () => {
           </div>
         </div>
 
-        {/* Notes Upload */}
         <div className="notes-upload">
           <h3>Upload Notes</h3>
           <form onSubmit={handleNotesUpload}>
@@ -134,7 +131,6 @@ const ProfileDetail = () => {
               <option value="DS">Data Science and Engineering</option>
               <option value="AIML">Artificial Intelligence and Machine Learning</option>
               <option value="EEE">Electrical and Electronics Engineering</option>
-
             </select>
             <input type="text" placeholder="Enter Subject Name" value={subject} onChange={(e) => setSubject(e.target.value)} />
             <input type="file" accept=".pdf,.doc,.docx" onChange={(e) => setNoteFile(e.target.files[0])} />
@@ -142,7 +138,6 @@ const ProfileDetail = () => {
           </form>
         </div>
 
-        {/* Close Button */}
         <div className="close-btn" onClick={() => dispatch(setProfileDetail())}>
           <MdOutlineClose />
         </div>
